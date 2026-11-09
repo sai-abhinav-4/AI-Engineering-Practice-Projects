@@ -3,11 +3,18 @@
 # The model decides, on its own, when to call the tool.
 # Run:  python agent.py
 import json
+import os
 from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
-client = OpenAI()
+
+client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1",
+)
+
+MODEL = "openai/gpt-oss-20b"
 
 # ---- our tiny "database" (a dict standing in for a real one) ----
 PRICES = {"shoes": 799, "hat": 399, "bag": 1420, "shorts": 1299, "pants": 1699}
@@ -40,7 +47,7 @@ def agent(user_message):
 
     # 1. send the message + the tools menu; the model may ask for a tool
     response = client.chat.completions.create(
-        model="gpt-4o-mini", messages=messages, tools=tools)
+        model=MODEL, messages=messages, tools=tools)
     msg = response.choices[0].message
 
     # 2. did it ask for a tool?
@@ -55,7 +62,7 @@ def agent(user_message):
                 "content": result,
             })
         # 4. send everything back so it can answer nicely
-        response = client.chat.completions.create(model="gpt-4o-mini", messages=messages)
+        response = client.chat.completions.create(model=MODEL, messages=messages)
         msg = response.choices[0].message
 
     return msg.content
