@@ -1,6 +1,6 @@
 # AI Engineering Practice Projects
 
-This repository contains hands-on practice projects and exercises from the Scaler AI BootCamp.
+This repository contains hands-on practice projects 
 
 ## First Class: LLM API Fundamentals & Applications
 
@@ -24,6 +24,11 @@ This repository contains hands-on practice projects and exercises from the Scale
 - Takes a target URL from the user, uses `scraper.py` to extract page content, and prompts Groq (`openai/gpt-oss-20b`) to generate a friendly Markdown summary.
 - Generates a local and shareable public link (`share=True`).
 
+### 5. `structured_output.py`
+- Enforces strict JSON output using `response_format={"type": "json_object"}`.
+- Parses and validates output into a strongly-typed **Pydantic** model (`TravelPlan`).
+- Inspects token usage metrics (`prompt_tokens`, `completion_tokens`, `total_tokens`).
+
 ---
 
 ## Setup & Running
@@ -36,7 +41,7 @@ cd AI-Engineering-Practice-Projects
 
 ### 2. Install dependencies
 ```bash
-pip install openai python-dotenv requests beautifulsoup4 gradio
+pip install openai python-dotenv requests beautifulsoup4 gradio pydantic
 ```
 
 ### 3. Configure environment variables
@@ -64,4 +69,9 @@ GROQ_API_KEY=your_groq_api_key_here
 - **Launch the AI Website Summarizer (Web UI):**
   ```powershell
   python summarizer.py
+  ```
+
+- **Run structured JSON output with Pydantic:**
+  ```powershell
+  python structured_output.py
   ```
