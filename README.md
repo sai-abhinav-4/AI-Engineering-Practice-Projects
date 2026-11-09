@@ -66,14 +66,31 @@ git clone https://github.com/sai-abhinav-4/AI-Engineering-Practice-Projects.git
 cd AI-Engineering-Practice-Projects
 ```
 
-### 2. Install dependencies
-```bash
-pip install openai python-dotenv requests beautifulsoup4 gradio pydantic langchain-core langchain-openai
+### 2. Set up and Activate Virtual Environment (`.venv`)
+Create and activate an isolated Python environment:
+
+- **Windows (PowerShell):**
+  ```powershell
+  python -m venv .venv
+  .\.venv\Scripts\Activate.ps1
+  ```
+- **macOS / Linux:**
+  ```bash
+  python3 -m venv .venv
+  source .venv/bin/activate
+  ```
+
+> *Tip: Once activated, your terminal prompt will be prefixed with `(.venv)`.*
+
+### 3. Install dependencies
+With the virtual environment activated:
+```powershell
+pip install -r requirements.txt
 ```
 
-### 3. Configure environment variables
+### 4. Configure environment variables
 Copy `.env.example` to `.env` and add your Groq API key:
-```bash
+```powershell
 copy .env.example .env
 ```
 Inside `.env`:
@@ -81,54 +98,57 @@ Inside `.env`:
 GROQ_API_KEY=your_groq_api_key_here
 ```
 
-### 4. Run the scripts
+---
 
-- **Run first LLM call:**
+### 5. Running Each Project (Ensure `.venv` is activated)
+
+- **1. Basic LLM Call**
   ```powershell
   python first_call.py
   ```
 
-- **Run interactive CLI chat:**
+- **2. Interactive CLI Chat (Streaming & Memory)**
   ```powershell
   python interactive_chat.py
   ```
 
-- **Launch the AI Website Summarizer (Web UI):**
+- **3. AI Website Summarizer (Web UI with Gradio)**
   ```powershell
   python summarizer.py
   ```
 
-- **Run structured JSON output with Pydantic:**
+- **4. Structured JSON Output with Pydantic**
   ```powershell
   python structured_output.py
   ```
 
-- **Run LangChain LCEL summarizer:**
+- **5. LangChain LCEL Summarizer**
   ```powershell
   python langchain/summarizer_langchain.py
   ```
 
-- **Run LangChain memory chat:**
+- **6. LangChain Memory Demo & Chat**
   ```powershell
+  python langchain/memory_demo.py
   python langchain/memory_chat.py
   ```
 
-- **Run AI Agent with tool calling:**
+- **7. Tool-Calling Agent**
   ```powershell
   python langchain/first_agent.py
   ```
 
-- **Launch Smart Shop Assistant (Web UI):**
+- **8. Smart Shop Assistant (Web UI with Memory)**
   ```powershell
   python langchain/smart_shop_assistant.py
   ```
 
-- **Run LangChain single tool agent:**
+- **9. LangChain Single-Tool Agent**
   ```powershell
   python langchain/agent_single_tool.py
   ```
 
-- **Run LangChain multi-tool agent:**
+- **10. LangChain Multi-Tool Agent**
   ```powershell
   python langchain/agent_multi_tools.py
   ```
