@@ -44,10 +44,29 @@ tools = [{
 }]
 
 
+def _format_content(content):
+    """Ensure message content is always returned as a clean string."""
+    if isinstance(content, str):
+        return content
+    if isinstance(content, list):
+        return "".join(
+            part.get("text", "") if isinstance(part, dict) else getattr(part, "text", str(part))
+            for part in content
+        )
+    return str(content) if content is not None else ""
+
+
 # ---- Step 3: the loop — think -> maybe call tool -> answer ----
 def agent(user_message, history=None):
     messages = [
-        {"role": "system", "content": "You are a helpful and polite shop assistant. Use your tools to check prices when customers ask about shop items."}
+        {
+            "role": "system",
+            "content": (
+                "You are a helpful and polite shop assistant. Always use the `get_price` tool to look up prices "
+                "when customers ask about shop items. If the tool returns '₹unknown', politely inform the customer "
+                "that the item is not available in our shop. Never invent or hallucinate a price."
+            ),
+        }
     ]
 
     # Convert and append conversation history if provided (supports Gradio dict and tuple formats)
@@ -86,7 +105,7 @@ def agent(user_message, history=None):
         response = client.chat.completions.create(model=MODEL, messages=messages)
         msg = response.choices[0].message
 
-    return msg.content
+    return _format_content(msg.content)
 
 
 if __name__ == "__main__":
