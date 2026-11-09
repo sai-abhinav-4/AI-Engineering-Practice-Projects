@@ -29,6 +29,11 @@ This repository contains hands-on practice projects
 - Parses and validates output into a strongly-typed **Pydantic** model (`TravelPlan`).
 - Inspects token usage metrics (`prompt_tokens`, `completion_tokens`, `total_tokens`).
 
+### 6. `langchain/summarizer_langchain.py`
+- Implements a LangChain Expression Language (LCEL) pipeline: `prompt | model | parser`.
+- Demonstrates using LangChain's `ChatOpenAI` as a wrapper pointing to Groq's API (`base_url="https://api.groq.com/openai/v1"`).
+- Fetches and sanitizes website content via `scraper.py` before passing it to the chain.
+
 ---
 
 ## Setup & Running
@@ -41,7 +46,7 @@ cd AI-Engineering-Practice-Projects
 
 ### 2. Install dependencies
 ```bash
-pip install openai python-dotenv requests beautifulsoup4 gradio pydantic
+pip install openai python-dotenv requests beautifulsoup4 gradio pydantic langchain-core langchain-openai
 ```
 
 ### 3. Configure environment variables
@@ -74,4 +79,9 @@ GROQ_API_KEY=your_groq_api_key_here
 - **Run structured JSON output with Pydantic:**
   ```powershell
   python structured_output.py
+  ```
+
+- **Run LangChain LCEL summarizer:**
+  ```powershell
+  python langchain/summarizer_langchain.py
   ```
