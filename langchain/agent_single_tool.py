@@ -81,7 +81,6 @@ agent = create_agent(
 def ask(question: str, show_steps: bool = True) -> None:
     response = agent.invoke({"messages": [{"role": "user", "content": question}]})
     print(f"\nQ: {question}")
-    print(response["messages"])
     if show_steps:
         for msg in response["messages"]:
             if msg.type == "ai" and getattr(msg, "tool_calls", None):
@@ -97,4 +96,4 @@ def ask(question: str, show_steps: bool = True) -> None:
 # ---------------------------------------------------------------------------
 if __name__ == "__main__":
     ask("What is the weather like in New York?")
-    ask("What is scaler company?")
+    ask("What is Antropic company?")

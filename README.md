@@ -52,6 +52,10 @@ This repository contains hands-on practice projects
 - Connects to Groq using the `ChatOpenAI` provider wrapper.
 - Demonstrates tool calling introspection, step-by-step tool results, and final answer generation.
 
+### 11. `langchain/agent_multi_tools.py`
+- Extends the LangChain agent with multiple specialized tools: `get_weather`, `add`, `multiply`, and `get_population`.
+- Demonstrates autonomous tool selection, multi-tool execution in a single prompt, and step-by-step execution traces.
+
 ---
 
 ## Setup & Running
@@ -122,4 +126,9 @@ GROQ_API_KEY=your_groq_api_key_here
 - **Run LangChain single tool agent:**
   ```powershell
   python langchain/agent_single_tool.py
+  ```
+
+- **Run LangChain multi-tool agent:**
+  ```powershell
+  python langchain/agent_multi_tools.py
   ```
