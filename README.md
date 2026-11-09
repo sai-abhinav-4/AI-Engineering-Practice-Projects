@@ -34,6 +34,19 @@ This repository contains hands-on practice projects
 - Demonstrates using LangChain's `ChatOpenAI` as a wrapper pointing to Groq's API (`base_url="https://api.groq.com/openai/v1"`).
 - Fetches and sanitizes website content via `scraper.py` before passing it to the chain.
 
+### 7. `langchain/memory_demo.py` & `langchain/memory_chat.py`
+- **`memory_demo.py`**: Explains how LLMs achieve memory by re-sending past turns using LangChain's `MessagesPlaceholder("history")`.
+- **`memory_chat.py`**: Interactive CLI chat that dynamically appends `HumanMessage` and `AIMessage` to the conversation history after each turn.
+
+### 8. `langchain/first_agent.py`
+- Builds a tool-calling AI Agent using Groq (`openai/gpt-oss-20b`).
+- Equips the LLM with a Python tool function (`get_price`).
+- Implements an autonomous decision loop: LLM decides whether to invoke the tool, extracts arguments, executes the local Python function, and returns the grounded answer.
+
+### 9. `langchain/smart_shop_assistant.py`
+- Interactive web chat interface built using **Gradio** (`gr.ChatInterface`).
+- Wraps `first_agent.py` into a user-friendly shopping assistant interface with both local and shareable public links (`share=True`).
+
 ---
 
 ## Setup & Running
@@ -84,4 +97,14 @@ GROQ_API_KEY=your_groq_api_key_here
 - **Run LangChain LCEL summarizer:**
   ```powershell
   python langchain/summarizer_langchain.py
+  ```
+
+- **Run LangChain memory chat:**
+  ```powershell
+  python langchain/memory_chat.py
+  ```
+
+- **Run AI Agent with tool calling:**
+  ```powershell
+  python langchain/first_agent.py
   ```

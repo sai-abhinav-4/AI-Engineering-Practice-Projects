@@ -1,12 +1,15 @@
-# agent.py
+# first_agent.py
 # Block 11 — your first tiny AGENT: an LLM + one tool + a loop.
 # The model decides, on its own, when to call the tool.
 # Run:  python agent.py
 import json
 import os
+import sys
 from openai import OpenAI
 from dotenv import load_dotenv
 
+# Ensure parent directory is in sys.path to locate .env
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 load_dotenv()
 
 client = OpenAI(
@@ -42,8 +45,26 @@ tools = [{
 
 
 # ---- Step 3: the loop — think -> maybe call tool -> answer ----
-def agent(user_message):
-    messages = [{"role": "user", "content": user_message}]
+def agent(user_message, history=None):
+    messages = [
+        {"role": "system", "content": "You are a helpful and polite shop assistant. Use your tools to check prices when customers ask about shop items."}
+    ]
+
+    # Convert and append conversation history if provided (supports Gradio dict and tuple formats)
+    if history:
+        for turn in history:
+            if isinstance(turn, dict):
+                role = turn.get("role", "user")
+                content = turn.get("content", "")
+                messages.append({"role": role, "content": str(content)})
+            elif isinstance(turn, (list, tuple)) and len(turn) == 2:
+                user_text, bot_text = turn
+                if user_text:
+                    messages.append({"role": "user", "content": str(user_text)})
+                if bot_text:
+                    messages.append({"role": "assistant", "content": str(bot_text)})
+
+    messages.append({"role": "user", "content": user_message})
 
     # 1. send the message + the tools menu; the model may ask for a tool
     response = client.chat.completions.create(
