@@ -47,6 +47,11 @@ This repository contains hands-on practice projects
 - Interactive web chat interface built using **Gradio** (`gr.ChatInterface`).
 - Wraps `first_agent.py` into a user-friendly shopping assistant interface with both local and shareable public links (`share=True`).
 
+### 10. `langchain/agent_single_tool.py`
+- Implements LangChain V1 `create_agent` with a custom Python tool function (`get_weather`).
+- Connects to Groq using the `ChatOpenAI` provider wrapper.
+- Demonstrates tool calling introspection, step-by-step tool results, and final answer generation.
+
 ---
 
 ## Setup & Running
@@ -107,4 +112,14 @@ GROQ_API_KEY=your_groq_api_key_here
 - **Run AI Agent with tool calling:**
   ```powershell
   python langchain/first_agent.py
+  ```
+
+- **Launch Smart Shop Assistant (Web UI):**
+  ```powershell
+  python langchain/smart_shop_assistant.py
+  ```
+
+- **Run LangChain single tool agent:**
+  ```powershell
+  python langchain/agent_single_tool.py
   ```
