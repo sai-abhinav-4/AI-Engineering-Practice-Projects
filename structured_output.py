@@ -61,8 +61,12 @@ def get_structured_travel_guide(city: str) -> TravelPlan:
 
 
 if __name__ == "__main__":
-    city_name = "Hyderabad"
-    print(f"Generating structured travel plan for: {city_name}...\n")
+    city_name = input("Enter a city name: ").strip()
+    if not city_name:
+        print("No city entered. Defaulting to Hyderabad.")
+        city_name = "Hyderabad"
+
+    print(f"\nGenerating structured travel plan for: {city_name}...\n")
 
     plan = get_structured_travel_guide(city_name)
 
