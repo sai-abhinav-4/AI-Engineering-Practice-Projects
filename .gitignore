@@ -24,3 +24,8 @@ dist/
 .vscode/
 .idea/
 *.swp
+
+# Vector Stores
+chroma_db/
+**/chroma_db/
+*.sqlite3

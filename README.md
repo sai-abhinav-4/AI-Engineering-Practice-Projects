@@ -68,6 +68,11 @@ This repository contains hands-on practice projects
 - Implements document chunking using `langchain_text_splitters.RecursiveCharacterTextSplitter`.
 - Splits a structured document into overlapping chunks (`chunk_size=80`, `chunk_overlap=10`) to preserve context across boundaries.
 
+### 14. `Rag/index.py`
+- Indexes documents into a persistent vector store using `langchain_chroma.Chroma`.
+- Uses `langchain_huggingface.HuggingFaceEmbeddings` with `all-MiniLM-L6-v2` for local, fast vector embeddings.
+- Persists vector embeddings and metadata to disk (`./chroma_db`).
+
 ---
 
 ## Setup & Running
@@ -173,4 +178,9 @@ GROQ_API_KEY=your_groq_api_key_here
 - **12. Document Chunking with Overlap**
   ```powershell
   python Rag/chunk.py
+  ```
+
+- **13. Vector Indexing with ChromaDB**
+  ```powershell
+  python Rag/index.py
   ```
