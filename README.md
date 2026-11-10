@@ -68,11 +68,6 @@ This repository contains hands-on practice projects
 - Implements document chunking using `langchain_text_splitters.RecursiveCharacterTextSplitter`.
 - Splits a structured document into overlapping chunks (`chunk_size=80`, `chunk_overlap=10`) to preserve context across boundaries.
 
-### 14. `Rag/rag_qa.py`
-- End-to-end RAG QA pipeline connecting chunking, vector embedding, and LLM inference.
-- Retrieves the top-K semantically relevant document chunks for a question.
-- Prompts Groq (`openai/gpt-oss-20b`) with strictly grounded context to generate factual answers and prevent hallucinations.
-
 ---
 
 ## Setup & Running
@@ -178,9 +173,4 @@ GROQ_API_KEY=your_groq_api_key_here
 - **12. Document Chunking with Overlap**
   ```powershell
   python Rag/chunk.py
-  ```
-
-- **13. End-to-End Grounded RAG QA**
-  ```powershell
-  python Rag/rag_qa.py
   ```
