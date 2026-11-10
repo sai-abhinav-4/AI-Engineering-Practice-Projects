@@ -73,6 +73,11 @@ This repository contains hands-on practice projects
 - Uses `langchain_huggingface.HuggingFaceEmbeddings` with `all-MiniLM-L6-v2` for local, fast vector embeddings.
 - Persists vector embeddings and metadata to disk (`./chroma_db`).
 
+### 15. `Rag/rag.py`
+- Connects to the persistent ChromaDB vector store and performs similarity search (`similarity_search(k=3)`).
+- Formats a strictly grounded prompt with retrieved chunks.
+- Uses Groq (`openai/gpt-oss-20b`) via the `ChatOpenAI` wrapper to answer questions accurately without hallucinating.
+
 ---
 
 ## Setup & Running
@@ -183,4 +188,9 @@ GROQ_API_KEY=your_groq_api_key_here
 - **13. Vector Indexing with ChromaDB**
   ```powershell
   python Rag/index.py
+  ```
+
+- **14. Grounded RAG QA with Groq**
+  ```powershell
+  python Rag/rag.py
   ```
