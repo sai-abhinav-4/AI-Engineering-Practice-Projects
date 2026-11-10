@@ -78,6 +78,15 @@ This repository contains hands-on practice projects
 - Formats a strictly grounded prompt with retrieved chunks.
 - Uses Groq (`openai/gpt-oss-20b`) via the `ChatOpenAI` wrapper to answer questions accurately without hallucinating.
 
+### 16. `Rag/rerank.py`
+- Re-ranks candidate documents retrieved from ChromaDB using `sentence-transformers.CrossEncoder` (`cross-encoder/ms-marco-MiniLM-L6-v2`).
+- Retrieves a wider initial pool of candidates (`k=25`) and computes cross-attention scores across (query, chunk) pairs to select the top-k most relevant passages.
+
+### 17. `Rag/pdf_chat.py`
+- End-to-end PDF chatbot web UI built with **Gradio** (`gr.ChatInterface`).
+- Reads uploaded PDF files using `PyPDFLoader` (`langchain-community`, `pypdf`), chunks text, and builds an in-memory vector index.
+- Answers questions using Groq (`openai/gpt-oss-20b`) with source page citations (`Sources: page X, page Y`).
+
 ---
 
 ## Setup & Running
@@ -193,4 +202,14 @@ GROQ_API_KEY=your_groq_api_key_here
 - **14. Grounded RAG QA with Groq**
   ```powershell
   python Rag/rag.py
+  ```
+
+- **15. Candidate Reranking with Cross-Encoder**
+  ```powershell
+  python Rag/rerank.py
+  ```
+
+- **16. Interactive PDF Chatbot (Web UI)**
+  ```powershell
+  python Rag/pdf_chat.py
   ```
