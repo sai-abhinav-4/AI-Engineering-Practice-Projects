@@ -58,6 +58,23 @@ This repository contains hands-on practice projects
 
 ---
 
+## Retrieval-Augmented Generation (RAG)
+
+### 12. `Rag/embeddings.py`
+- Generates 384-dimensional dense vector embeddings using `sentence-transformers` (`all-MiniLM-L6-v2`).
+- Measures semantic similarity between sentences using cosine similarity (`numpy.dot` / `numpy.linalg.norm`).
+
+### 13. `Rag/chunk.py`
+- Implements document chunking using `langchain_text_splitters.RecursiveCharacterTextSplitter`.
+- Splits a structured document into overlapping chunks (`chunk_size=80`, `chunk_overlap=10`) to preserve context across boundaries.
+
+### 14. `Rag/rag_qa.py`
+- End-to-end RAG QA pipeline connecting chunking, vector embedding, and LLM inference.
+- Retrieves the top-K semantically relevant document chunks for a question.
+- Prompts Groq (`openai/gpt-oss-20b`) with strictly grounded context to generate factual answers and prevent hallucinations.
+
+---
+
 ## Setup & Running
 
 ### 1. Clone the repository
@@ -151,4 +168,19 @@ GROQ_API_KEY=your_groq_api_key_here
 - **10. LangChain Multi-Tool Agent**
   ```powershell
   python langchain/agent_multi_tools.py
+  ```
+
+- **11. Vector Embeddings & Cosine Similarity**
+  ```powershell
+  python Rag/embeddings.py
+  ```
+
+- **12. Document Chunking with Overlap**
+  ```powershell
+  python Rag/chunk.py
+  ```
+
+- **13. End-to-End Grounded RAG QA**
+  ```powershell
+  python Rag/rag_qa.py
   ```
