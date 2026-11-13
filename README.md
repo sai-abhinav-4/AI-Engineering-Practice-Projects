@@ -96,6 +96,12 @@ This repository contains hands-on practice projects
 - **Fully Self-Contained Docker Image**: Uses layer caching (`requirements.txt`), build-time model training (`RUN python train.py` produces `eta_model.pkl` inside the image layer), and exposes REST endpoints on port 8000 (`/predict`, `/docs`).
 - For complete setup and testing instructions, see [docker-projects/quickbite-eta/README.md](docker-projects/quickbite-eta/README.md).
 
+### 19. `docker-projects/notes-gpt` (NotesGpt)
+- **Multi-Container RAG Chatbot** over custom notes built with `FastAPI`, Groq (`openai/gpt-oss-20b`), and persistent `ChromaDB`.
+- **Docker Compose Orchestration**: Runs two interconnected services (`notesgpt-app` and `notesgpt-chroma`) with service-name networking and named volume persistence (`chroma_data`).
+- **Free Local Embeddings**: Computes text embeddings using `all-MiniLM-L6-v2` locally with zero external embedding API costs.
+- For complete setup and testing instructions, see [docker-projects/notes-gpt/README.md](docker-projects/notes-gpt/README.md).
+
 ---
 
 ## Setup & Running
@@ -240,4 +246,28 @@ GROQ_API_KEY=your_groq_api_key_here
   # Stop and clean up container
   docker stop eta-service
   docker rm eta-service
+  ```
+
+- **18. NotesGpt Multi-Container RAG Assistant (Docker Compose & Groq)**
+  ```powershell
+  # Navigate to project folder
+  cd docker-projects/notes-gpt
+
+  # Create .env from template (ensure GROQ_API_KEY is set)
+  copy .env.example .env
+
+  # Build and start both containers (app + chroma) in detached mode
+  docker compose up -d --build
+
+  # Ingest documentation notes into ChromaDB
+  docker compose exec app python ingest.py
+
+  # Query the assistant via Windows PowerShell
+  Invoke-RestMethod -Uri "http://localhost:8000/ask" -Method Post -ContentType "application/json" -Body '{"query": "Why should I copy requirements.txt before the rest of my code?"}'
+
+  # Interactive Swagger API Documentation:
+  # Open in browser: http://localhost:8000/docs
+
+  # Stop containers (preserves database volume)
+  docker compose down
   ```
