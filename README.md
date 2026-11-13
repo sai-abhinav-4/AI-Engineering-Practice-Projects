@@ -89,6 +89,15 @@ This repository contains hands-on practice projects
 
 ---
 
+## Dockerized Projects (`docker-projects/`)
+
+### 18. `docker-projects/quickbite-eta`
+- Food-delivery **ETA prediction service** built with `scikit-learn` and served with `FastAPI`.
+- **Fully Self-Contained Docker Image**: Uses layer caching (`requirements.txt`), build-time model training (`RUN python train.py` produces `eta_model.pkl` inside the image layer), and exposes REST endpoints on port 8000 (`/predict`, `/docs`).
+- For complete setup and testing instructions, see [docker-projects/quickbite-eta/README.md](docker-projects/quickbite-eta/README.md).
+
+---
+
 ## Setup & Running
 
 ### 1. Clone the repository
@@ -212,4 +221,23 @@ GROQ_API_KEY=your_groq_api_key_here
 - **16. Interactive PDF Chatbot (Web UI)**
   ```powershell
   python Rag/pdf_chat.py
+  ```
+
+- **17. QuickBite ETA Prediction Service (Dockerized ML & FastAPI API)**
+  ```powershell
+  # Build the Docker image from project folder
+  docker build -t quickbite-eta:v1 ./docker-projects/quickbite-eta
+
+  # Run container mapped to port 8000
+  docker run -d -p 8000:8000 --name eta-service quickbite-eta:v1
+
+  # Test prediction endpoint (Windows PowerShell)
+  Invoke-RestMethod -Uri "http://localhost:8000/predict" -Method Post -ContentType "application/json" -Body '{"distance_km": 4.5, "prep_time_min": 15, "rider_available": 1, "is_raining": 1}'
+
+  # Interactive Swagger API Documentation:
+  # Open in browser: http://localhost:8000/docs
+
+  # Stop and clean up container
+  docker stop eta-service
+  docker rm eta-service
   ```
