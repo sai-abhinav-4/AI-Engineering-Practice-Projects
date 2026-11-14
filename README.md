@@ -102,6 +102,11 @@ This repository contains hands-on practice projects
 - **Free Local Embeddings**: Computes text embeddings using `all-MiniLM-L6-v2` locally with zero external embedding API costs.
 - For complete setup and testing instructions, see [docker-projects/notes-gpt/README.md](docker-projects/notes-gpt/README.md).
 
+### 20. `docker-projects/deskbuddy` (DeskBuddy Agent)
+- **Multi-Service Agentic AI System** with tool execution and persistent session memory.
+- **Three-Container Architecture**: Orchestrates `deskbuddy-agent` (FastAPI + Groq `openai/gpt-oss-20b` tool-calling loop on port 9000), `deskbuddy-tools` (private internal calculator & clock microservice on port 7000), and `deskbuddy-redis` (session memory storage with volume persistence).
+- For complete setup and testing instructions, see [docker-projects/deskbuddy/README.md](docker-projects/deskbuddy/README.md).
+
 ---
 
 ## Setup & Running
@@ -269,5 +274,29 @@ GROQ_API_KEY=your_groq_api_key_here
   # Open in browser: http://localhost:8000/docs
 
   # Stop containers (preserves database volume)
+  docker compose down
+  ```
+
+- **19. DeskBuddy Multi-Service Tool-Calling Agent (Docker Compose, Redis & Groq)**
+  ```powershell
+  # Navigate to project folder
+  cd docker-projects/deskbuddy
+
+  # Create .env from template (ensure GROQ_API_KEY is set)
+  copy .env.example .env
+
+  # Build and start all three containers (agent, tools, redis)
+  docker compose up -d --build
+
+  # Check health
+  Invoke-RestMethod -Uri "http://localhost:9000/"
+
+  # Talk to the agent (multi-tool invocation: calculator + datetime)
+  Invoke-RestMethod -Uri "http://localhost:9000/chat" -Method Post -ContentType "application/json" -Body '{"session_id": "demo", "message": "What is 23*47, and what time is it right now?"}'
+
+  # Follow-up test with session memory
+  Invoke-RestMethod -Uri "http://localhost:9000/chat" -Method Post -ContentType "application/json" -Body '{"session_id": "demo", "message": "Now double that multiplication result"}'
+
+  # Stop containers (preserves Redis memory volume)
   docker compose down
   ```
